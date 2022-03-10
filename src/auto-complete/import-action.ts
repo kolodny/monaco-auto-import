@@ -1,4 +1,4 @@
-import * as Monaco from 'monaco-editor'
+import type * as Monaco from 'monaco-editor'
 
 import { IMPORT_COMMAND } from './import-completion'
 import ImportDb, { ImportObject } from './import-db'
@@ -23,6 +23,7 @@ export class ImportAction implements Monaco.languages.CodeActionProvider {
     })
   }
 
+  // @ts-ignore
   public provideCodeActions(
     document: Monaco.editor.ITextModel,
     range: Monaco.Range,
@@ -69,7 +70,7 @@ export class ImportAction implements Monaco.languages.CodeActionProvider {
         title: `Import '${i.name}' from module "${path(i)}"`,
         command: {
           title: 'AI: Autocomplete',
-          id: IMPORT_COMMAND,
+          id: `vs.editor.ICodeEditor:1:${IMPORT_COMMAND}`,
           arguments: [i, context.document]
         }
       })

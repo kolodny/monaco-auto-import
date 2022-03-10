@@ -1,4 +1,4 @@
-import * as Monaco from 'monaco-editor'
+import type * as Monaco from 'monaco-editor';
 
 import ImportDb, { ImportObject } from './import-db'
 import { ImportFixer } from './import-fixer'
@@ -8,17 +8,16 @@ export const IMPORT_COMMAND = 'resolveImport'
 
 class ImportCompletion implements Monaco.languages.CompletionItemProvider {
   constructor(
+    private monaco: typeof Monaco,
     private editor: Monaco.editor.IStandaloneCodeEditor,
     private importDb: ImportDb
   ) {
-    // TODO: Add typings / find public API
-    const cs = (editor as any)._commandService
-
     // Register the resolveImport
-    cs.addCommand({
+    editor.addAction({
       id: IMPORT_COMMAND,
-      handler: (_, ...args) => this.handleCommand.call(this, ...args)
-    })
+      label: 'resolve imports',
+      run: (_, ...args) => this.handleCommand.call(this, ...args),
+    });
   }
 
   /**
@@ -26,13 +25,15 @@ class ImportCompletion implements Monaco.languages.CompletionItemProvider {
    * suggestion has been selected
    */
   public handleCommand(imp: ImportObject, document: Monaco.editor.ITextModel) {
-    new ImportFixer(this.editor).fix(document, imp)
+    new ImportFixer(this.monaco, this.editor).fix(document, imp);
   }
 
   public provideCompletionItems(document: Monaco.editor.ITextModel) {
-    const imports = this.importDb.all()
+    const imports = this.importDb.all();
 
-    return imports.map(i => this.buildCompletionItem(i, document))
+    return {
+      suggestions: imports.map((i) => this.buildCompletionItem(i, document)),
+    };
   }
 
   // public provideCompletionItems__on_keypress(
@@ -57,23 +58,25 @@ class ImportCompletion implements Monaco.languages.CompletionItemProvider {
     imp: ImportObject,
     document: Monaco.editor.ITextModel
   ): Monaco.languages.CompletionItem {
-    const path = this.createDescription(imp)
+    const path = this.createDescription(imp);
 
     return {
       label: imp.name,
+      range: undefined as any,
       kind: kindResolver(imp),
       detail: `Auto import from '${path}'\n${imp.type} ${imp.name}`,
+      insertText: imp.name,
       command: {
         title: 'AI: Autocomplete',
-        id: IMPORT_COMMAND,
-        arguments: [imp, document]
-      }
-    }
+        id: `vs.editor.ICodeEditor:1:${IMPORT_COMMAND}`,
+        arguments: [imp, document],
+      },
+    };
   }
 
   private createDescription({ file }: ImportObject) {
-    return file.aliases[0] || file.path
+    return file.aliases[0] || file.path;
   }
 }
 
-export default ImportCompletion
+export default ImportCompletion;

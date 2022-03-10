@@ -1,4 +1,4 @@
-import * as Monaco from 'monaco-editor'
+import type * as Monaco from 'monaco-editor'
 
 import { getMatches } from './../parser/util'
 import { ImportObject } from './import-db'
@@ -8,7 +8,7 @@ export class ImportFixer {
   private doubleQuotes
   private useSemiColon
 
-  constructor(private editor: Monaco.editor.IStandaloneCodeEditor) {
+  constructor(private monaco: typeof Monaco, private editor: Monaco.editor.IStandaloneCodeEditor) {
     this.useSemiColon = false
     this.spacesBetweenBraces = true
     this.doubleQuotes = false
@@ -37,12 +37,12 @@ export class ImportFixer {
 
     if (fileResolved) {
       edits.push({
-        range: new Monaco.Range(0, 0, document.getLineCount(), 0),
+        range: new this.monaco.Range(0, 0, document.getLineCount(), 0),
         text: this.mergeImports(document, imp, imports[0].path)
       })
     } else {
       edits.push({
-        range: new Monaco.Range(0, 0, 0, 0),
+        range: new this.monaco.Range(0, 0, 0, 0),
         text: this.createImportStatement(imp, true)
       })
     }

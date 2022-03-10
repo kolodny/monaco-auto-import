@@ -1,9 +1,11 @@
 # monaco-auto-import
 
 
-[![npm version](https://img.shields.io/npm/v/@blitz/monaco-auto-import.svg?style=flat-square)](https://www.npmjs.com/package/@blitz/monaco-auto-import)
-[![npm downloads](https://img.shields.io/npm/dm/@blitz/monaco-auto-import.svg?style=flat-square)](https://www.npmjs.com/package/@blitz/monaco-auto-import)
-[![Demo](https://img.shields.io/badge/Online-Demo-yellow.svg?style=flat-square)](https://unpkg.com/@blitz/monaco-auto-import/dist/index.html)
+[![npm version](https://img.shields.io/npm/v/@kolodny/monaco-auto-import.svg?style=flat-square)](https://www.npmjs.com/package/@kolodny/monaco-auto-import)
+[![npm downloads](https://img.shields.io/npm/dm/@kolodny/monaco-auto-import.svg?style=flat-square)](https://www.npmjs.com/package/@kolodny/monaco-auto-import)
+[![Demo](https://img.shields.io/badge/Online-Demo-yellow.svg?style=flat-square)](https://unpkg.com/@kolodny/monaco-auto-import/dist/index.html)
+
+Forked from https://github.com/stackblitz/monaco-auto-import
 
 
 Easily add auto-import to the Monaco editor, with Javascript & Typescript support.
@@ -15,7 +17,7 @@ Easily add auto-import to the Monaco editor, with Javascript & Typescript suppor
 ### Example code
 
 ```ts
-import AutoImport, { regexTokeniser } from '@blitz/monaco-auto-import'
+import AutoImport, { regexTokeniser } from '@kolodny/monaco-auto-import'
 
 const editor = monaco.editor.create(document.getElementById('demo'), {
   value: `
@@ -46,9 +48,9 @@ completor.imports.saveFiles([
 ### Installing
 
 ```bash
-yarn add @blitz/monaco-auto-import
+yarn add @kolodny/monaco-auto-import
 # or
-npm i @blitz/monaco-auto-import --save
+npm i @kolodny/monaco-auto-import --save
 ```
 
 ### Using
@@ -58,7 +60,7 @@ npm i @blitz/monaco-auto-import --save
 Simply create a new Monaco editor instance and pass it to `AutoImport`. This will register custom completion providers for Monaco's `javascript` and `typescript` language services.
 
 ```ts
-import AutoImport from '@blitz/monaco-auto-import'
+import AutoImport from '@kolodny/monaco-auto-import'
 
 const editor = monaco.editor.create(document.getElementById('demo'), {
   language: 'typescript'
@@ -90,7 +92,7 @@ completor.imports.saveFile({
 This package includes a built-in `regexTokeniser`, which uses a simple Regex to extracts exports from Javascript / Typescript code
 
 ```ts
-import { regexTokeniser } from '@blitz/monaco-auto-import'
+import { regexTokeniser } from '@kolodny/monaco-auto-import'
 
 const imports = regexTokeniser(`
   export const a = 1
