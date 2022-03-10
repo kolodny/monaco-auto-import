@@ -16,7 +16,9 @@ export class ImportFixer {
 
   public fix(document: Monaco.editor.ITextModel, imp: ImportObject): void {
     const edits = this.getTextEdits(document, imp)
-    this.editor.executeEdits('', edits)
+    setTimeout(() => {
+      this.editor.executeEdits('', edits)
+    }, 0);
   }
 
   public getTextEdits(document: Monaco.editor.ITextModel, imp: ImportObject) {

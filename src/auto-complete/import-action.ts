@@ -64,7 +64,8 @@ export class ImportAction implements Monaco.languages.CodeActionProvider {
     let path = ({ file }: ImportObject) => {
       return file.aliases[0] || file.path
     }
-    let handlers = new Array<Monaco.languages.CodeAction>()
+    let handlers = new Array<Monaco.languages.CodeAction>();
+    (handlers as any).dispose = () => {}
     context.imports.forEach(i => {
       handlers.push({
         title: `Import '${i.name}' from module "${path(i)}"`,

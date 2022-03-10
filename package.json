@@ -1,6 +1,6 @@
 {
   "name": "@kolodny/monaco-auto-import",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "description": "Easily add auto-import to the Monaco editor, with Javascript & Typescript support.",
@@ -17,8 +17,14 @@
     "@types/jest": "^23.1.4",
     "jest": "^23.3.0",
     "monaco-editor": "^0.32.1",
+    "parcel": "^2.3.2",
     "ts-jest": "^22.4.2",
     "typescript": "^4.6.2"
+  },
+  "targets": {
+    "module": false,
+    "main": false,
+    "types": false
   },
   "browserslist": [
     "last 3 versions"

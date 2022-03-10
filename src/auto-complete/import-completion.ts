@@ -62,7 +62,6 @@ class ImportCompletion implements Monaco.languages.CompletionItemProvider {
 
     return {
       label: imp.name,
-      range: undefined as any,
       kind: kindResolver(imp),
       detail: `Auto import from '${path}'\n${imp.type} ${imp.name}`,
       insertText: imp.name,
@@ -71,7 +70,7 @@ class ImportCompletion implements Monaco.languages.CompletionItemProvider {
         id: `vs.editor.ICodeEditor:1:${IMPORT_COMMAND}`,
         arguments: [imp, document],
       },
-    };
+    } as any;
   }
 
   private createDescription({ file }: ImportObject) {
