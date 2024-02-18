@@ -1,6 +1,6 @@
 {
   "name": "@kolodny/monaco-auto-import",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "description": "Easily add auto-import to the Monaco editor, with Javascript & Typescript support.",
